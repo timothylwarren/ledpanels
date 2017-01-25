@@ -1,13 +1,16 @@
 #!/usr/bin/env python
+
 from __future__ import division
-import roslib; roslib.load_manifest('ledpanels')
+import roslib;roslib.load_manifest('ledpanels')
+
 import rospy
 import serial
 import numpy as N
 
 if __name__ == '__main__':
-    from ledpanels.msg import MsgPanelsCommand
-    from ledpanels.srv import *
+	from ledpanels.msg import MsgPanelsCommand
+	from ledpanels.srv import *
+
     
 import subprocess
 
@@ -24,6 +27,7 @@ import subprocess
 # rostopic pub -1 ledpanels/command ledpanels/MsgPanelsCommand set_pattern_id 1 0 0 0 0 0
 # (panel commands take 0 to 6 parameters, but the rostopic command needs to see all six, hence the "all_on 0 0 0 0 0 0", etc).
 # 
+
 class LEDPanels():
     def __init__(self):
         self.initialized = False
@@ -238,13 +242,15 @@ class LEDPanels():
         rospy.logwarn ('ledpanels using %s' % self.serialport)
         if (self.serialport is not None):
             try:
-                #self.serial = serial.Serial(self.serialport, baudrate=921600, rtscts=False, dsrdtr=False, timeout=1) # 8N1
+                self.serial = serial.Serial(self.serialport, baudrate=921600, rtscts=False, dsrdtr=False, timeout=1) # 8N1
                 #self.serial = serial.Serial(self.serialport, baudrate=460800, rtscts=False, dsrdtr=False, timeout=1) # 8N1
                 #self.serial = serial.Serial(self.serialport, baudrate=230400, rtscts=False, dsrdtr=False, timeout=1) # 8N1
-                self.serial = serial.Serial(self.serialport, baudrate=115200, rtscts=False, dsrdtr=False, timeout=1) # 8N1
-                #self.serial = serial.Serial(self.serialport, baudrate=76800, rtscts=False, dsrdtr=False, timeout=1) # 8N1
-                self.initialized = True
+                #self.serial = serial.Serial(self.serialport, baudrate=115200, rtscts=False, dsrdtr=False, timeout=1) # 8N1                
+		#self.serial = serial.Serial(self.serialport, baudrate=76800, rtscts=False, dsrdtr=False, timeout=1) # 8N1
+		self.initialized = True
             except serial.serialutil.SerialException, e:
+		print 'here'
+		print e
                 rospy.logerr('ledpanels serial port could not be opened:' % e)
         else:
             rospy.logerr('ledpanels serial port was not specified as a ROS parameter, nor was it found automatically.')
@@ -268,7 +274,7 @@ class LEDPanels():
                 if 'tty' in token:
                     serialport = '/dev/' + token
                 
-            
+            print serialport
         return serialport
               
         
