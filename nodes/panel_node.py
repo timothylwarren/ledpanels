@@ -448,9 +448,6 @@ class LEDPanels():
 #        # Shutdown all the services we offered.
 #        for key in self.services:
 #            self.services[key].shutdown()
-            
-            
-
 
 if __name__ == '__main__':
     panels = LEDPanels()
