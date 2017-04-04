@@ -51,6 +51,7 @@ find_package(
 add_message_files(
    FILES
    MsgPanelsCommand.msg
+   MsgDebug.msg
 )
 
 ## Generate services in the 'srv' folder
