@@ -103,6 +103,9 @@ class LedControler(object):
 
     def all_off(self):
         self.msg.command = 'all_off';self.clear_args();self.pub.publish(self.msg)
+
+    def all_off(self):
+        self.msg.command = 'all_on';self.clear_args();self.pub.publish(self.msg)
     
     def set_ao(self,channel,value = 0):
         """set the analog out as a voltage. Output range from  0 to 10, -10 to 0 volts.
