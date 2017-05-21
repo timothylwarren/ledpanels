@@ -242,10 +242,10 @@ class LEDPanels():
         rospy.logwarn ('ledpanels using %s' % self.serialport)
         if (self.serialport is not None):
             try:
-                self.serial = serial.Serial(self.serialport, baudrate=921600, rtscts=False, dsrdtr=False, timeout=1) # 8N1
+                #self.serial = serial.Serial(self.serialport, baudrate=921600, rtscts=False, dsrdtr=False, timeout=1) # 8N1
                 #self.serial = serial.Serial(self.serialport, baudrate=460800, rtscts=False, dsrdtr=False, timeout=1) # 8N1
                 #self.serial = serial.Serial(self.serialport, baudrate=230400, rtscts=False, dsrdtr=False, timeout=1) # 8N1
-                #self.serial = serial.Serial(self.serialport, baudrate=115200, rtscts=False, dsrdtr=False, timeout=1) # 8N1                
+                self.serial = serial.Serial(self.serialport, baudrate=115200, rtscts=False, dsrdtr=False, timeout=1) # 8N1                
 		#self.serial = serial.Serial(self.serialport, baudrate=76800, rtscts=False, dsrdtr=False, timeout=1) # 8N1
 		self.initialized = True
             except serial.serialutil.SerialException, e:
