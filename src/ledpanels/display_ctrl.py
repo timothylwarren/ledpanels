@@ -30,6 +30,23 @@ class LedControler(object):
         idx = self.patstrings.index(name) + 1
         self.set_pattern_id(idx)
 
+    def set_velocity_function_id(self,channel,id,freq = 50):
+        self.msg.command = 'set_velfunc_id'
+        self.clear_args()
+        self.msg.arg1 = channel+1
+        self.msg.arg2 = id
+        self.pub.publish(self.msg)
+        if channel == 0:
+            self.msg.command = 'set_funcx_freq'
+            self.clear_args()
+            self.msg.arg1 = freq
+            self.pub.publish(self.msg)
+        else:
+            self.msg.command = 'set_funcy_freq'
+            self.clear_args()
+            self.msg.arg1 = freq
+            self.pub.publish(self.msg)
+
     def set_position_function_id(self,channel,id,freq = 50):
         self.msg.command = 'set_posfunc_id'
         self.clear_args()
@@ -72,7 +89,7 @@ class LedControler(object):
         self.msg.arg2 = mode_y_decode[mode_y]
         self.pub.publish(self.msg)
 
-    def set_function_by_name(self,channel,name,freq = 50):
+    def set_position_function_by_name(self,channel,name,freq = 50):
         channel = {'X':0,'Y':1}[channel.upper()]
         if name == 'default':
             self.set_position_function_id(channel,0,freq = freq)
@@ -86,7 +103,7 @@ class LedControler(object):
         matdata = scipy.io.loadmat(path)
         #self.patstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][-1][0]]
         #self.funcstrings = [x[0] for x in matdata['SD'][0][0][1][0][0][1][0]]
-	self.funcstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][1][0]]
+        self.funcstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][1][0]]
         self.patstrings = [x[0] for x in  matdata['SD'][0][0][1][0][0][-1][0]]
 
 
