@@ -101,10 +101,13 @@ class LedControler(object):
     def load_SD_inf(self,path):
         import scipy.io
         matdata = scipy.io.loadmat(path)
-        #self.patstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][-1][0]]
-        #self.funcstrings = [x[0] for x in matdata['SD'][0][0][1][0][0][1][0]]
-        self.funcstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][1][0]]
-        self.patstrings = [x[0] for x in  matdata['SD'][0][0][1][0][0][-1][0]]
+
+        try:
+        	self.funcstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][1][0]]
+       		self.patstrings = [x[0] for x in  matdata['SD'][0][0][1][0][0][-1][0]]
+       	except IndexError:
+       	   	self.patstrings = [x[0] for x in matdata['SD'][0][0][0][0][0][-1][0]]
+            self.funcstrings = [x[0] for x in matdata['SD'][0][0][1][0][0][1][0]]
 
 
     def start(self):
