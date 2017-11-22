@@ -418,14 +418,19 @@ class LEDPanels():
 
 
     def PanelsCommand_callback(self, panelcommand):
+        import io
         if self.initialized:
+
             #rospy.logwarn('ledpanels: %s(%d,%d,%d,%d,%d,%d)' % (panelcommand.command, panelcommand.arg1, panelcommand.arg2, panelcommand.arg3, panelcommand.arg4, panelcommand.arg5, panelcommand.arg6))
             command = panelcommand.command.lower()
             serialbytes_list = self.SerialBytelistFromCommand(command, [panelcommand.arg1, panelcommand.arg2, panelcommand.arg3, panelcommand.arg4, panelcommand.arg5, panelcommand.arg6])
             self.MakeSurePortIsOpen()
-                        
+            #sio = io.TextIOWrapper(io.BufferedRWPair(self.serial, self.serial))
+
             try:
+                import time
                 self.serial.write(''.join(serialbytes_list))
+                time.sleep(0.01)
             except serial.SerialException, e:
                 rospy.logwarn('ledpanels: Serial exception, trying to reopen: %s' % e)
                 if self.serial.isOpen():
