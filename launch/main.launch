@@ -1,14 +1,15 @@
 <launch>
-	<!-- ========================================================== -->
-	<!-- Start the LED panels.                                      -->
+    <!-- ========================================================== -->
+    <!-- Start the LED panels.                                      -->
     <!--                                                            -->
     <!-- Don't launch this file directly.                           -->
     <!-- Launch the hardware-specific .launch file, and point here  -->
     <!-- from there.                                                -->
-	<!-- ========================================================== -->
+    <!-- ========================================================== -->
     
 	
-	<node name="ledpanels" pkg="ledpanels" type="panel_node.py" required="true" />
+    <param name="ledpanels/serialport" type="str" value="/dev/pcontroller" />
+    <node name="ledpanels" pkg="ledpanels" type="panel_node.py" required="true" />
     <node name="paneldebug" pkg="ledpanels" type="debug_server.py" required="true" />
 
 </launch>
