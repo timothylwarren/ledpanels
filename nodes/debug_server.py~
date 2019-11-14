@@ -41,5 +41,5 @@ if __name__ == '__main__':
         #debug_line = server.readline().data
         #if len(debug_line) > 0:
         #    server.debug_pub.publish(data = debug_line)
-        server.rate.sleep()
+        #server.rate.sleep()
     server.controller_pub.publish(command = 'quite_mode_on')
