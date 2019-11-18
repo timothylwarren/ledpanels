@@ -10,6 +10,6 @@
 	
     <param name="ledpanels/serialport" type="str" value="/dev/pcontroller" />
     <node name="ledpanels" pkg="ledpanels" type="panel_node.py" required="true" />
-    <!-- <node name="paneldebug" pkg="ledpanels" type="debug_server.py" required="true" /> -->
+    <node name="paneldebug" pkg="ledpanels" type="debug_server.py" required="true" />
 
 </launch>

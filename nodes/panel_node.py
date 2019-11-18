@@ -436,7 +436,7 @@ class LEDPanels():
             try:
                 with self.lock:
                     self.serial.write(''.join(serialbytes_list))
-                    time.sleep(0.01)
+                time.sleep(0.01)
             except serial.SerialException, e:
                 rospy.logwarn('ledpanels: Serial exception, trying to reopen: %s' % e)
                 with self.lock:
