@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 from __future__ import division
-from __future__ import absolute_import
-from __future__ import print_function
 import roslib;roslib.load_manifest('ledpanels')
 
 import time
@@ -10,7 +8,6 @@ import rospy
 import serial
 import numpy as N
 import threading
-from six.moves import range
 
 if __name__ == '__main__':
 	from ledpanels.msg import MsgPanelsCommand
@@ -273,8 +270,7 @@ class LEDPanels():
             p1 = subprocess.Popen(["dmesg"], stdout=subprocess.PIPE)
             p2 = subprocess.Popen(["grep", "FTDI USB Serial Device converter now attached"], stdin=p1.stdout, stdout=subprocess.PIPE)
             output = p2.communicate()[0]    
-            str_output=output.decode()
-            output = str_output.replace('\n', ' ')
+            output = output.replace('\n', ' ')
             
             # Go through all the ttyXXXXX tokens, and take the last one.
             serialport = None  
@@ -439,9 +435,7 @@ class LEDPanels():
 
             try:
                 with self.lock:
-                    #rv_serialbytes_list=[x.encode('utf-8') for x in serialbytes_list]
-                    strvl=''.join(serialbytes_list)
-                    self.serial.write(str.encode(strvl))
+                    self.serial.write(''.join(serialbytes_list))
                 time.sleep(0.01)
             except serial.SerialException as e:
                 rospy.logwarn('ledpanels: Serial exception, trying to reopen: %s' % e)
@@ -450,9 +444,7 @@ class LEDPanels():
                         self.serial.close()
                     self.MakeSurePortIsOpen()
                     try:
-                        #rv_serialbytes_list=[x.encode('utf-8') for x in serialbytes_list]
-                        strvl=''.join(serialbytes_list)
-                        self.serial.write(str.encode(strvl))
+                        self.serial.write(''.join(serialbytes_list))
                     except serial.SerialException as e:
                         rospy.logwarn ('ledpanels: Write FAILED to serial port %s: %s' % (self.serialport, e))
                     else:
